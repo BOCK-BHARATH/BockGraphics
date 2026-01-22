@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../utils/file_downloader.dart';
+import '../auth/token_store.dart';
 
 class CompletionCertificateForm extends StatefulWidget {
   const CompletionCertificateForm({Key? key}) : super(key: key);
@@ -51,7 +52,7 @@ class _CompletionCertificateFormState
 
       final response = await http.post(
         url,
-        headers: {"Content-Type": "application/json"},
+        headers: {"Content-Type": "application/json","Authorization": "Bearer ${await TokenStore.read()}",},
         body: jsonEncode({
           "name": nameController.text,
           "title": titleController.text,

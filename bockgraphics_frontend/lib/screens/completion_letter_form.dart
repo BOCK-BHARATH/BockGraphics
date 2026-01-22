@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../utils/file_downloader.dart';
+import '../auth/token_store.dart';
 
 class CompletionLetterFormScreen extends StatefulWidget {
   const CompletionLetterFormScreen({Key? key}) : super(key: key);
@@ -75,7 +76,7 @@ class _CompletionLetterFormScreenState
 
       final response = await http.post(
         url,
-        headers: {"Content-Type": "application/json"},
+        headers: {"Content-Type": "application/json","Authorization": "Bearer ${await TokenStore.read()}",},
         body: jsonEncode({
           "name": nameController.text,
           "issueDate": issueDateController.text,

@@ -6,8 +6,8 @@ import 'screens/joining_form_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'screens/completion_letter_form.dart';
 import 'screens/completion_certificate_form.dart';
-
-
+import 'screens/auth_gate.dart';
+import 'screens/login_screen.dart';
 
 Future<void> main() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -35,7 +35,9 @@ class InternLetterApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const HomeScreen(),
+        '/':(_)=> const AuthGate(),
+        '/login': (_) => const LoginScreen(),
+        '/home': (context) => const HomeScreen(),
         '/companies': (context) => const CompanySelectionScreen(),
         '/offer_form': (context) => const OfferFormScreen(),
         '/joining_form': (context) => const JoiningFormScreen(),

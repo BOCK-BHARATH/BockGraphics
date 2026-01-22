@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../utils/file_downloader.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import '../auth/token_store.dart';
 class JoiningFormScreen extends StatefulWidget {
   const JoiningFormScreen({Key? key}) : super(key: key);
 
@@ -54,10 +55,10 @@ class _JoiningFormScreenState extends State<JoiningFormScreen> {
       "${dotenv.env['API_BASE_URL']}/generate-joining",
     );
     
-
+    final token = await TokenStore.read();
     final response = await http.post(
       url,
-      headers: {"Content-Type": "application/json"},
+      headers: {"Content-Type": "application/json","Authorization": "Bearer $token",},
       body: jsonEncode({
         "name": nameController.text,
         "program": programController.text,

@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../utils/file_downloader.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import '../auth/token_store.dart';
 
 class OfferFormScreen extends StatefulWidget {
   const OfferFormScreen({Key? key}) : super(key: key);
@@ -63,10 +64,10 @@ class _OfferFormScreenState extends State<OfferFormScreen> {
         }
         return months.toString(); // decimal
       }
-
+      final token = await TokenStore.read();
       final response = await http.post(
         url,
-        headers: {"Content-Type": "application/json"},
+        headers: {"Content-Type": "application/json","Authorization": "Bearer $token",},
         body: jsonEncode({
           "name": nameController.text,
           "program": programController.text,

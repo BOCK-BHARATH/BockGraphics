@@ -5,6 +5,11 @@ const path = require("path");
 const COMPANY_CONFIG = require("./config/letterConfig");
 const renderDoc = require("./utils/renderDoc");
 
+const authRoutes = require("./routes/authRoutes");
+const { requireAuth } = require("./middleware/requireAuth");
+
+
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -15,8 +20,13 @@ function getConfig(field) {
   return config;
 }
 
+app.get("/health", (_, res) => res.json({ ok: true }));
+
+// auth
+app.use("/auth", authRoutes);
+
 /* ================= OFFER LETTER ================= */
-app.post("/generate-offer", (req, res) => {
+app.post("/generate-offer",requireAuth,async (req, res) => {
   try {
     const { name, program, issueDate, startDate, endDate, months, mode, field } =
       req.body;
@@ -50,7 +60,7 @@ app.post("/generate-offer", (req, res) => {
 });
 
 /* ================= JOINING LETTER ================= */
-app.post("/generate-joining", (req, res) => {
+app.post("/generate-joining",requireAuth,async (req, res) => {
   try {
     const { name, program, issueDate, startDate, endDate, field } = req.body;
 
@@ -81,7 +91,7 @@ app.post("/generate-joining", (req, res) => {
 });
 
 /* ================= COMPLETION CERTIFICATE ================= */
-app.post("/generate-completion-certificate", (req, res) => {
+app.post("/generate-completion-certificate",requireAuth,async (req, res) => {
   try {
     const {
       name,
@@ -123,7 +133,7 @@ app.post("/generate-completion-certificate", (req, res) => {
 });
 
 /* ================= COMPLETION LETTER ================= */
-app.post("/generate-completion-letter", (req, res) => {
+app.post("/generate-completion-letter",requireAuth,async (req, res) => {
   try {
     const {
       name,
