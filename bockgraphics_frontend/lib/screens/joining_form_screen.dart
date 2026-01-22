@@ -55,7 +55,7 @@ class _JoiningFormScreenState extends State<JoiningFormScreen> {
       "${dotenv.env['API_BASE_URL']}/generate-joining",
     );
     
-    final token = await TokenStore.read();
+    final token = await getTokenStore().read();
     final response = await http.post(
       url,
       headers: {"Content-Type": "application/json","Authorization": "Bearer $token",},

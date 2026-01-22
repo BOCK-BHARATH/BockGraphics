@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
       final token = json["token"] as String?;
       if (token == null || token.isEmpty) throw Exception("No token returned");
 
-      await TokenStore.save(token);
+      await getTokenStore().save(token);
 
       if (!mounted) return;
       Navigator.pushReplacementNamed(context, "/home");
@@ -73,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Text("Email"),
                   TextFormField(
                     controller: emailController,
-                    decoration: const InputDecoration(hintText: "admin@bock.com"),
+                    decoration: const InputDecoration(hintText: "Enter email"),
                     validator: (v) => v == null || v.isEmpty ? "Enter email" : null,
                   ),
                   const SizedBox(height: 12),

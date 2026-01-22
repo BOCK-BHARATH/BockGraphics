@@ -9,7 +9,7 @@ class AuthGate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<String?>(
-      future: TokenStore.read(),
+      future: getTokenStore().read(),
       builder: (context, snapshot) {
         // ✅ Proper loading check
         if (snapshot.connectionState == ConnectionState.waiting) {

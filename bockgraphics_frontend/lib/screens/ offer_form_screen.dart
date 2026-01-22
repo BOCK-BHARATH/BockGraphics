@@ -64,7 +64,7 @@ class _OfferFormScreenState extends State<OfferFormScreen> {
         }
         return months.toString(); // decimal
       }
-      final token = await TokenStore.read();
+      final token = await getTokenStore().read();
       final response = await http.post(
         url,
         headers: {"Content-Type": "application/json","Authorization": "Bearer $token",},

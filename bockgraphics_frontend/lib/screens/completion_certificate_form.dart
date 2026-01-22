@@ -52,7 +52,7 @@ class _CompletionCertificateFormState
 
       final response = await http.post(
         url,
-        headers: {"Content-Type": "application/json","Authorization": "Bearer ${await TokenStore.read()}",},
+        headers: {"Content-Type": "application/json","Authorization": "Bearer ${await getTokenStore().read()}",},
         body: jsonEncode({
           "name": nameController.text,
           "title": titleController.text,
