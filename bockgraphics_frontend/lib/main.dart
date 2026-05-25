@@ -8,6 +8,7 @@ import 'screens/completion_letter_form.dart';
 import 'screens/completion_certificate_form.dart';
 import 'screens/auth_gate.dart';
 import 'screens/login_screen.dart';
+import 'auth/auth_guard.dart';
 
 Future<void> main() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -37,13 +38,12 @@ class InternLetterApp extends StatelessWidget {
       routes: {
         '/':(_)=> const AuthGate(),
         '/login': (_) => const LoginScreen(),
-        '/home': (context) => const HomeScreen(),
-        '/companies': (context) => const CompanySelectionScreen(),
-        '/offer_form': (context) => const OfferFormScreen(),
-        '/joining_form': (context) => const JoiningFormScreen(),
-  '/completion_letter_form': (context) => const CompletionLetterFormScreen(),
-  '/completion_certificate_form': (context) =>
-      const CompletionCertificateForm(),
+        '/home': (context) => const AuthGuard(child: HomeScreen()),
+        '/companies': (context) => const AuthGuard(child: CompanySelectionScreen()),
+        '/offer_form': (context) => const AuthGuard(child: OfferFormScreen()),
+        '/joining_form': (context) => const AuthGuard(child: JoiningFormScreen()),
+        '/completion_letter_form': (context) => const AuthGuard(child: CompletionLetterFormScreen()),
+        '/completion_certificate_form': (context) => const AuthGuard(child: CompletionCertificateForm()),
       },
     );
   }
